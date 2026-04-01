@@ -36,7 +36,11 @@ export async function getTransactions(filters?: TransactionFilters) {
   if (filters?.dateFrom || filters?.dateTo) {
     where.date = {}
     if (filters.dateFrom) where.date.gte = new Date(filters.dateFrom)
-    if (filters.dateTo) where.date.lte = new Date(filters.dateTo + 'T23:59:59')
+    if (filters.dateTo) {
+      const dateTo = new Date(filters.dateTo)
+      dateTo.setHours(23, 59, 59, 999)
+      where.date.lte = dateTo
+    }
   }
 
   return prisma.transaction.findMany({

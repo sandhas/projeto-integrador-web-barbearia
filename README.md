@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BarberControl – Gestão Financeira para Barbearias
 
-## Getting Started
+Web App SPA para barbearias controlarem suas receitas e despesas, construído com **Next.js 14**, **Prisma** e **SQLite**.
 
-First, run the development server:
+## ✨ Funcionalidades
+
+- **Dashboard** – Visão geral do mês com KPIs (receitas, despesas, saldo, número de transações) e gráficos dos últimos 6 meses
+- **Transações** – CRUD completo de receitas e despesas com busca, filtros por tipo/categoria/período
+- **Relatórios** – Análise mensal com gráficos de barras e pizza, resumo por mês e breakdown por categoria
+- **Categorias** – Gerencie categorias de receita e despesa com cores personalizadas
+
+## 🛠 Tecnologias
+
+| Camada | Tecnologia |
+|--------|------------|
+| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
+| Banco de dados | [Prisma](https://www.prisma.io/) + SQLite (local) |
+| UI | [Tailwind CSS](https://tailwindcss.com/) + [Lucide React](https://lucide.dev/) |
+| Gráficos | [Recharts](https://recharts.org/) |
+| Lógica | Server Actions (sem API separada) |
+| Deploy | [Vercel](https://vercel.com/) |
+
+## 🚀 Começando
+
+### Pré-requisitos
+
+- Node.js 18+
+- npm
+
+### Instalação
 
 ```bash
+# Clone o repositório
+git clone https://github.com/sandhas/projeto-integrador-web-barbearia.git
+cd projeto-integrador-web-barbearia
+
+# Instale as dependências (gera o Prisma Client automaticamente)
+npm install
+
+# Crie e aplique as migrações do banco de dados
+npm run db:migrate
+
+# Inicie o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Estrutura do Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/                    # Rotas Next.js (App Router)
+│   ├── page.tsx            # Dashboard
+│   ├── transacoes/         # Gerenciamento de transações
+│   ├── relatorios/         # Relatórios e análises
+│   └── categorias/         # Gerenciamento de categorias
+├── components/             # Componentes reutilizáveis
+│   ├── Sidebar.tsx
+│   ├── TransactionModal.tsx
+│   ├── DeleteConfirmModal.tsx
+│   ├── TransactionsClient.tsx
+│   ├── CategoriesClient.tsx
+│   ├── RelatoriosClient.tsx
+│   └── charts/             # Gráficos (Recharts)
+├── lib/
+│   ├── prisma.ts           # Singleton do Prisma Client
+│   ├── actions.ts          # Server Actions (toda a lógica de negócio)
+│   └── seed.ts             # Seed de categorias padrão
+└── prisma/
+    ├── schema.prisma       # Schema do banco de dados
+    └── migrations/         # Histórico de migrações
+```
 
-## Learn More
+## 🗄 Schema do Banco de Dados
 
-To learn more about Next.js, take a look at the following resources:
+```prisma
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  description String
+  amount      Float
+  type        String   // "EXPENSE" | "REVENUE"
+  category    String
+  date        DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  type      String   // "EXPENSE" | "REVENUE"
+  color     String   @default("#6366f1")
+  createdAt DateTime @default(now())
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📸 Screenshots
 
-## Deploy on Vercel
+| Dashboard | Transações |
+|-----------|------------|
+| ![Dashboard](https://github.com/user-attachments/assets/51c4e8cd-5412-4284-a1bd-c77903d8ddfa) | ![Transações](https://github.com/user-attachments/assets/c710180b-023f-4309-99b6-8b505a336107) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Nova Transação | Relatórios |
+|----------------|------------|
+| ![Modal](https://github.com/user-attachments/assets/80c204db-0ba6-46bf-aaae-daf4837ff84e) | ![Relatórios](https://github.com/user-attachments/assets/e3c04d53-d391-4116-9417-c3fdab718fae) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Licença
+
+MIT

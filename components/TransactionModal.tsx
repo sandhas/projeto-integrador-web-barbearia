@@ -68,13 +68,13 @@ export default function TransactionModal({
   // Reset category when type changes if current category doesn't match.
   // form.category is intentionally excluded: we only want to react to type/categories
   // changes, not to re-run the effect every time the user types a category.
-  const currentCategory = form.category
+  const categoryToValidate = form.category
   useEffect(() => {
-    const match = categories.find((c) => c.name === currentCategory && c.type === form.type)
+    const match = categories.find((c) => c.name === categoryToValidate && c.type === form.type)
     if (!match) {
       setForm((prev) => ({ ...prev, category: '' }))
     }
-  }, [form.type, categories, currentCategory])
+  }, [form.type, categories, categoryToValidate])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
