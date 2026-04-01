@@ -44,7 +44,7 @@ export default function Sidebar() {
                   : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
               }`}
             >
-              <Icon className="w-4.5 h-4.5 w-5 h-5 shrink-0" />
+              <Icon className="w-5 h-5 shrink-0" />
               {label}
             </Link>
           )
