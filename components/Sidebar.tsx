@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, ArrowLeftRight, BarChart3, Tag, Scissors } from 'lucide-react'
+import { LayoutDashboard, ArrowLeftRight, BarChart3, Tag, Scissors, Calculator } from 'lucide-react'
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/transacoes', label: 'Transações', icon: ArrowLeftRight },
   { href: '/relatorios', label: 'Relatórios', icon: BarChart3 },
   { href: '/categorias', label: 'Categorias', icon: Tag },
+  { href: '/calculo-lucro', label: 'Calculadora', icon: Calculator },
 ]
 
 export default function Sidebar() {
