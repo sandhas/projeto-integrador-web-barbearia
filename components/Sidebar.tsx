@@ -77,6 +77,3 @@ export default function Sidebar({ userName }: { userName?: string }) {
     </aside>
   )
 }
-
-
-
