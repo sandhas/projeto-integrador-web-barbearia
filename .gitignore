@@ -16,6 +16,8 @@
 # Prisma local SQLite database
 /prisma/dev.db
 /prisma/dev.db-journal
+/dev.db
+/dev.db-journal
 
 # production
 /build
